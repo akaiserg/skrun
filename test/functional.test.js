@@ -84,6 +84,8 @@ describe('functional: import → list → tag → install → sync → purge', (
     writeFileSync(join(repoDir, 'skills', 'lint', 'SKILL.md'), '# Lint Skill\nLint your code.');
 
     execSync('git init -q', { cwd: repoDir });
+    execSync('git config user.email "test@example.com"', { cwd: repoDir });
+    execSync('git config user.name "Test"', { cwd: repoDir });
     execSync('git add -A', { cwd: repoDir });
     execSync('git commit -qm "init"', { cwd: repoDir });
 
@@ -379,6 +381,8 @@ describe('functional: import duplicate handling', () => {
     writeFileSync(join(repoDir, 'skills', 'dup-skill', 'SKILL.md'), '# v1');
 
     execSync('git init -q', { cwd: repoDir });
+    execSync('git config user.email "test@example.com"', { cwd: repoDir });
+    execSync('git config user.name "Test"', { cwd: repoDir });
     execSync('git add -A', { cwd: repoDir });
     execSync('git commit -qm "init"', { cwd: repoDir });
   });
@@ -415,6 +419,8 @@ describe('functional: import with no skills', () => {
     emptyRepo = mkdtempSync(join(tmpdir(), 'skrun-func-emptyrepo-'));
     writeFileSync(join(emptyRepo, 'README.md'), '# nothing here');
     execSync('git init -q', { cwd: emptyRepo });
+    execSync('git config user.email "test@example.com"', { cwd: emptyRepo });
+    execSync('git config user.name "Test"', { cwd: emptyRepo });
     execSync('git add -A && git commit -qm "init"', { cwd: emptyRepo });
   });
 
