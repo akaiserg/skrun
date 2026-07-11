@@ -491,9 +491,8 @@ node --test --experimental-test-coverage test/*.test.js
 ## Publishing
 
 Published to the public npm registry as [`skrun`](https://www.npmjs.com/package/skrun). See
-[PUBLISHING.md](PUBLISHING.md) for the full walkthrough — manual `npm publish` from your machine,
-or automatic publishing via the `.github/workflows/publish.yml` GitHub Actions workflow on tag
-push, including one-time npm token setup.
+[PUBLISHING.md](PUBLISHING.md) for the full walkthrough. Publishing is manual (`npm publish` from
+your machine) — there is no CI publish workflow.
 
 ### Stable release
 
