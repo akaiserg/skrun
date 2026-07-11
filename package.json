@@ -1,0 +1,52 @@
+{
+  "name": "@akaiserg/skrun",
+  "version": "0.4.0-beta.0",
+  "description": "Skill Handle — manage AI agent skills across projects",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akaiserg/skh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akaiserg/skh/issues"
+  },
+  "homepage": "https://github.com/akaiserg/skh#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "skrun": "bin/skrun.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "start": "node bin/skrun.js",
+    "prepublishOnly": "npm test",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
+    "release:beta": "npm version preminor --preid=beta",
+    "release:beta-bump": "npm version prerelease",
+    "publish:beta": "npm publish --tag beta",
+    "publish:registry": "npm publish",
+    "publish:dry-run": "npm publish --dry-run"
+  },
+  "keywords": [
+    "cli",
+    "ai",
+    "skills",
+    "agent",
+    "claude",
+    "copilot",
+    "cursor",
+    "opencode"
+  ],
+  "engines": {
+    "node": ">=16.7.0"
+  },
+  "author": "Andres Kaiser <akais002@gmail.com>",
+  "license": "MIT"
+}
