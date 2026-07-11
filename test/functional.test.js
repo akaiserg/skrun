@@ -2,10 +2,11 @@ import { describe, it, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { execSync } from 'child_process';
 import { mkdtempSync, rmSync, mkdirSync, writeFileSync, readFileSync, existsSync, lstatSync, readdirSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { tmpdir } from 'os';
+import { fileURLToPath } from 'url';
 
-const SKRUN = join(import.meta.dirname, '..', 'bin', 'skrun.js');
+const SKRUN = join(dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'skrun.js');
 
 function skrun(args, opts = {}) {
   const env = { ...process.env, ...opts.env };
