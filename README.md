@@ -1,5 +1,6 @@
 # skrun
 
+[![Test](https://github.com/akaiserg/skrun/actions/workflows/test.yml/badge.svg)](https://github.com/akaiserg/skrun/actions/workflows/test.yml)
 [![npm version](https://img.shields.io/npm/v/skrun)](https://www.npmjs.com/package/skrun)
 [![npm license](https://img.shields.io/npm/l/skrun)](https://www.npmjs.com/package/skrun)
 [![npm downloads](https://img.shields.io/npm/dm/skrun)](https://www.npmjs.com/package/skrun)
@@ -474,9 +475,14 @@ The `SKILL.md` content is what the AI agent reads. Write it as instructions the 
 
 ## Testing
 
+67 tests across 14 suites (unit + end-to-end functional), using Node's built-in `node:test` runner — zero test-framework dependencies. Every push and pull request to `main` runs the suite on Node 16/18/20 across Ubuntu, macOS, and Windows via [GitHub Actions](.github/workflows/test.yml).
+
 ```bash
 # Run all tests (unit + functional)
 npm test
+
+# Run a single suite
+node --test test/install.test.js
 
 # Run with coverage
 node --test --experimental-test-coverage test/*.test.js
@@ -484,7 +490,10 @@ node --test --experimental-test-coverage test/*.test.js
 
 ## Publishing
 
-Published to the public npm registry as [`skrun`](https://www.npmjs.com/package/skrun).
+Published to the public npm registry as [`skrun`](https://www.npmjs.com/package/skrun). See
+[PUBLISHING.md](PUBLISHING.md) for the full walkthrough — manual `npm publish` from your machine,
+or automatic publishing via the `.github/workflows/publish.yml` GitHub Actions workflow on tag
+push, including one-time npm token setup.
 
 ### Stable release
 

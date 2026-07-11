@@ -21,12 +21,13 @@
   "scripts": {
     "test": "node --test test/*.test.js",
     "start": "node bin/skrun.js",
-    "prepublishOnly": "npm test",
+    "prepublishOnly": "bash verify.sh",
     "release:patch": "npm version patch",
     "release:minor": "npm version minor",
     "release:major": "npm version major",
     "release:beta": "npm version preminor --preid=beta",
     "release:beta-bump": "npm version prerelease",
+    "release:stable": "npm version patch -m \"release: v%s\"",
     "publish:beta": "npm publish --tag beta",
     "publish:registry": "npm publish",
     "publish:dry-run": "npm publish --dry-run"
