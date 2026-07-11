@@ -40,7 +40,14 @@
     "claude",
     "copilot",
     "cursor",
-    "opencode"
+    "opencode",
+    "llm",
+    "mcp",
+    "ai-agents",
+    "skill-manager",
+    "package-manager",
+    "symlink",
+    "developer-tools"
   ],
   "engines": {
     "node": ">=16.7.0"
