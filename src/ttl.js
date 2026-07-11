@@ -1,4 +1,4 @@
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import { isWindows } from './config.js';
 import { logInfo, logError } from './logger.js';
 
@@ -22,7 +22,7 @@ export function ensureScheduler() {
 function ensureCronScheduler() {
   let existing = '';
   try {
-    existing = execSync('crontab -l 2>/dev/null', { encoding: 'utf8' });
+    existing = execFileSync('crontab', ['-l'], { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
   } catch {
     // no crontab yet
   }
@@ -33,22 +33,23 @@ function ensureCronScheduler() {
   const cronLine = `*/15 * * * * ${skrunBin} purge ${CRON_MARKER}`;
   const newCrontab = existing.trimEnd() + '\n' + cronLine + '\n';
 
-  execSync('crontab -', { input: newCrontab, stdio: ['pipe', 'pipe', 'pipe'] });
+  execFileSync('crontab', ['-'], { input: newCrontab, stdio: ['pipe', 'pipe', 'pipe'] });
   logInfo('scheduler', 'Cron entry installed (every 15 min)');
   console.log('TTL scheduler: cron entry installed (every 15 min).');
 }
 
 function ensureWindowsScheduler() {
   try {
-    execSync(`schtasks /Query /TN ${TASK_NAME}`, { stdio: 'pipe' });
+    execFileSync('schtasks', ['/Query', '/TN', TASK_NAME], { stdio: 'pipe' });
     return;
   } catch {
     // task doesn't exist yet
   }
 
   const skrunBin = resolveSkrun();
-  execSync(
-    `schtasks /Create /TN ${TASK_NAME} /SC MINUTE /MO 15 /TR "${skrunBin} purge" /F`,
+  execFileSync(
+    'schtasks',
+    ['/Create', '/TN', TASK_NAME, '/SC', 'MINUTE', '/MO', '15', '/TR', `"${skrunBin}" purge`, '/F'],
     { stdio: 'pipe' }
   );
   console.log('TTL scheduler: Windows task installed (every 15 min).');
@@ -57,7 +58,7 @@ function ensureWindowsScheduler() {
 function resolveSkrun() {
   try {
     const which = isWindows ? 'where' : 'which';
-    return execSync(`${which} skrun`, { encoding: 'utf8' }).trim().split('\n')[0];
+    return execFileSync(which, ['skrun'], { encoding: 'utf8' }).trim().split('\n')[0];
   } catch {
     return 'npx skrun';
   }
@@ -66,11 +67,11 @@ function resolveSkrun() {
 export function removeScheduler() {
   try {
     if (isWindows) {
-      execSync(`schtasks /Delete /TN ${TASK_NAME} /F`, { stdio: 'pipe' });
+      execFileSync('schtasks', ['/Delete', '/TN', TASK_NAME, '/F'], { stdio: 'pipe' });
     } else {
       let existing = '';
       try {
-        existing = execSync('crontab -l 2>/dev/null', { encoding: 'utf8' });
+        existing = execFileSync('crontab', ['-l'], { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
       } catch {
         return;
       }
@@ -78,7 +79,7 @@ export function removeScheduler() {
         .split('\n')
         .filter(line => !line.includes(CRON_MARKER))
         .join('\n');
-      execSync('crontab -', { input: filtered, stdio: ['pipe', 'pipe', 'pipe'] });
+      execFileSync('crontab', ['-'], { input: filtered, stdio: ['pipe', 'pipe', 'pipe'] });
     }
   } catch {
     // best-effort

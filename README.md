@@ -1,10 +1,10 @@
 # skrun
 
-[![npm version](https://img.shields.io/npm/v/%40akaiserg%2Fskrun)](https://www.npmjs.com/package/@akaiserg/skrun)
-[![npm license](https://img.shields.io/npm/l/%40akaiserg%2Fskrun)](https://www.npmjs.com/package/@akaiserg/skrun)
-[![npm downloads](https://img.shields.io/npm/dm/%40akaiserg%2Fskrun)](https://www.npmjs.com/package/@akaiserg/skrun)
-[![GitHub stars](https://img.shields.io/github/stars/akaiserg/skh?style=social)](https://github.com/akaiserg/skh)
-[![Node engines](https://img.shields.io/node/v/%40akaiserg%2Fskrun)](https://www.npmjs.com/package/@akaiserg/skrun)
+[![npm version](https://img.shields.io/npm/v/skrun)](https://www.npmjs.com/package/skrun)
+[![npm license](https://img.shields.io/npm/l/skrun)](https://www.npmjs.com/package/skrun)
+[![npm downloads](https://img.shields.io/npm/dm/skrun)](https://www.npmjs.com/package/skrun)
+[![GitHub stars](https://img.shields.io/github/stars/akaiserg/skrun?style=social)](https://github.com/akaiserg/skrun)
+[![Node engines](https://img.shields.io/node/v/skrun)](https://www.npmjs.com/package/skrun)
 
 A package manager for AI agent skills. One CLI to import, install, and sync skills across Claude Code, GitHub Copilot, OpenCode, Cursor, and any agent that reads `SKILL.md` files.
 
@@ -52,15 +52,15 @@ skrun install --tag=backend                               # batch install by tag
 You can run any command without a global install:
 
 ```bash
-npx @akaiserg/skrun <command>
+npx skrun <command>
 
 # Examples
-npx @akaiserg/skrun --version
-npx @akaiserg/skrun list
-npx @akaiserg/skrun import https://github.com/acme/agent-skills.git
+npx skrun --version
+npx skrun list
+npx skrun import https://github.com/acme/agent-skills.git
 
 # Pin a specific version
-npx @akaiserg/skrun@0.2.0 list
+npx skrun@0.2.0 list
 ```
 
 npx caches the package after the first run. To force the newest version after a publish, append `@latest` or clear the cache: `rm -rf ~/.npm/_npx`. For frequent use, prefer the global install — then just `skrun <command>`.
@@ -68,16 +68,16 @@ npx caches the package after the first run. To force the newest version after a 
 ### Install globally via npm
 
 ```bash
-npm install -g @akaiserg/skrun
+npm install -g skrun
 ```
 
-Installing the scoped package puts the bare `skrun` binary on your `PATH` (the package name is `@akaiserg/skrun`, but the CLI command stays `skrun`).
+Installing the package puts the `skrun` binary on your `PATH`.
 
 ### Install from source (local development)
 
 ```bash
-git clone https://github.com/akaiserg/skh.git
-cd skh
+git clone https://github.com/akaiserg/skrun.git
+cd skrun
 npm link          # symlinks the package globally so `skrun` is on your PATH
 ```
 
@@ -145,13 +145,13 @@ Clone a git repository, scan it for skills (folders containing `SKILL.md`), and 
 
 ```bash
 # Import from a GitHub repo
-skrun import https://github.com/akaiserg/skh.git
+skrun import https://github.com/akaiserg/skrun.git
 
 # Import from a local path
 skrun import /path/to/local/repo
 
 # Skip prompts, import everything
-skrun import https://github.com/akaiserg/skh.git --force
+skrun import https://github.com/akaiserg/skrun.git --force
 ```
 
 The interactive selector uses arrow keys to navigate, space to toggle, `a` to select all, and enter to confirm:
@@ -484,7 +484,7 @@ node --test --experimental-test-coverage test/*.test.js
 
 ## Publishing
 
-Published to the public npm registry as [`@akaiserg/skrun`](https://www.npmjs.com/package/@akaiserg/skrun).
+Published to the public npm registry as [`skrun`](https://www.npmjs.com/package/skrun).
 
 ### Stable release
 
@@ -523,29 +523,29 @@ npm run publish:beta
 ### Installing a beta
 
 ```bash
-npm install -g @akaiserg/skrun@beta
+npm install -g skrun@beta
 skrun --version  # 0.3.0-beta.0
 ```
 
 ## Troubleshooting
 
-### `npx @akaiserg/skrun` → `sh: skrun: command not found`
+### `npx skrun` → `sh: skrun: command not found`
 
 This is an npx fallback message, not a problem with the package. It happens when npx can't resolve the package from the registry — usually a stale npx cache (e.g. a cached 404 from before the package was published). Fix:
 
 ```bash
 rm -rf ~/.npm/_npx
-npx @akaiserg/skrun@0.2.0 --version
+npx skrun@0.2.0 --version
 ```
 
-If it still fails, a global install sidesteps npx entirely: `npm install -g @akaiserg/skrun`.
+If it still fails, a global install sidesteps npx entirely: `npm install -g skrun`.
 
 ### npx runs an old version after a publish
 
 npx caches packages. Append `@latest` (or the exact version) or clear the cache:
 
 ```bash
-npx @akaiserg/skrun@latest <command>
+npx skrun@latest <command>
 # or
 rm -rf ~/.npm/_npx
 ```
@@ -556,8 +556,8 @@ Contributions are welcome. `skrun` is zero-dependency, plain ESM Node.js — no 
 
 ```bash
 # Clone and link the CLI globally for local testing
-git clone https://github.com/akaiserg/skh.git
-cd skh
+git clone https://github.com/akaiserg/skrun.git
+cd skrun
 npm link          # `skrun` now points at your local checkout
 
 # Run the test suite

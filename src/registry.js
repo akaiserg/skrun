@@ -21,7 +21,8 @@ export function loadRegistry() {
 
 export function saveRegistry(registry) {
   mkdirSync(dirname(registryPath), { recursive: true });
-  const tmp = join(dirname(registryPath), `.registry-${Date.now()}.tmp`);
+  const unique = `${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const tmp = join(dirname(registryPath), `.registry-${unique}.tmp`);
   writeFileSync(tmp, JSON.stringify(registry, null, 2) + '\n');
   renameSync(tmp, registryPath);
 }

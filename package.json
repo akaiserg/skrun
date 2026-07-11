@@ -1,19 +1,16 @@
 {
-  "name": "@akaiserg/skrun",
+  "name": "skrun",
   "version": "0.4.0-beta.0",
-  "description": "Skill Handle — manage AI agent skills across projects",
+  "description": "skrun — manage AI agent skills across projects",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akaiserg/skh.git"
+    "url": "git+https://github.com/akaiserg/skrun.git"
   },
   "bugs": {
-    "url": "https://github.com/akaiserg/skh/issues"
+    "url": "https://github.com/akaiserg/skrun/issues"
   },
-  "homepage": "https://github.com/akaiserg/skh#readme",
-  "publishConfig": {
-    "access": "public"
-  },
+  "homepage": "https://github.com/akaiserg/skrun#readme",
   "bin": {
     "skrun": "bin/skrun.js"
   },

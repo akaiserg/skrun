@@ -1,7 +1,7 @@
 import { execFileSync } from 'child_process';
 import { join, resolve } from 'path';
 import { tmpdir } from 'os';
-import { existsSync } from 'fs';
+import { existsSync, mkdtempSync } from 'fs';
 import { skillsDir } from '../config.js';
 import { scanForSkills, skillExists, getTags, setTags } from '../skills.js';
 import { copyDir, forceRemove } from '../fsutil.js';
@@ -28,7 +28,7 @@ export async function importCommand(args, flags) {
       } catch {
         throw new Error('git is not installed or not on PATH. Install git to use skrun import.');
       }
-      tmpDir = join(tmpdir(), `skrun-import-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
+      tmpDir = mkdtempSync(join(tmpdir(), 'skrun-import-'));
       console.log(`Cloning ${repo}...`);
       execFileSync('git', ['clone', '--depth', '1', repo, tmpDir], { stdio: 'pipe' });
       sourceDir = tmpDir;

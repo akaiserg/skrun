@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, rmSync, symlinkSync } from 'fs';
+import { cpSync, mkdirSync, rmSync, symlinkSync, realpathSync } from 'fs';
 import { resolve, win32 } from 'path';
 import { isWindows } from './config.js';
 
@@ -44,10 +44,24 @@ export function pathDepth(p) {
 
 export function forceRemove(p) {
   if (!p) return;
-  // ponytail: refuse to delete anything less than 3 levels deep — safety net
-  if (pathDepth(p) < 3) return;
   const isWindowsPath = WINDOWS_ABSOLUTE_PATH.test(p);
   const resolved = isWindowsPath ? win32.resolve(p) : resolve(p);
+
+  // Resolve symlinks in the path before the depth check, so a shallow-looking
+  // path that's actually a symlink into a shallower real location is caught.
+  let real = resolved;
+  try {
+    real = realpathSync(resolved);
+  } catch {
+    // path doesn't exist (or dangling symlink) — fall back to the syntactic path
+  }
+
+  // ponytail: refuse to delete anything less than 3 levels deep — safety net.
+  // Check both the syntactic path and its symlink-resolved real path: a
+  // symlink can make the real target shallower than the string suggests
+  // (must be caught), while OS-level symlinks (e.g. macOS /tmp -> /private/tmp)
+  // can make the real path deeper without making the syntactic path any safer.
+  if (pathDepth(resolved) < 3 || pathDepth(real) < 3) return;
   rmSync(resolved, { recursive: true, force: true });
 }
 

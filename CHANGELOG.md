@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- **Moved repo to `github.com/akaiserg/skrun`** and **unscoped the npm package** from
+  `@akaiserg/skrun` to `skrun`, so the CLI can be run with `npx skrun` (no scope needed).
+
 ## 0.4.0-beta.0
 
 ### Breaking
