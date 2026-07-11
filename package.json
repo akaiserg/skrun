@@ -19,7 +19,7 @@
     "src"
   ],
   "scripts": {
-    "test": "node --test test/*.test.js",
+    "test": "node scripts/run-tests.js",
     "start": "node bin/skrun.js",
     "prepublishOnly": "bash verify.sh",
     "release:patch": "npm version patch",
