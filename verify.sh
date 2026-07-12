@@ -5,6 +5,11 @@
 # build + test. Exits non-zero if ANY step fails. This exit code IS the verdict —
 # it is a machine fact, not an LLM's opinion. @test-verifier RUNS this; it does
 # not get to overrule it. Run it yourself anytime: `bash verify.sh`.
+#
+# This gate deliberately runs the FULL suite (not just changed/affected files):
+# integrity beats speed here, and it's the last line before a slice is accepted.
+# Fast, targeted "affected tests only" belong in @code-builder's inner iteration
+# loop for quick feedback — NOT in this gate. Do not narrow it to win speed.
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -65,9 +70,11 @@ fi
 
 if [ -f pyproject.toml ] || [ -f requirements.txt ]; then
   detected=1; echo "Detected: Python"
-  command -v ruff   >/dev/null && run "lint"      ruff check .
-  command -v mypy   >/dev/null && run "typecheck" mypy .
-  command -v pytest >/dev/null && run "test"      pytest -q
+  # Warn (don't silently skip) when a checker is absent — a missing tool means the
+  # gate is greener than it looks. Same honesty principle as the zero-tests warning.
+  if command -v ruff   >/dev/null; then run "lint"      ruff check .; else echo "⚠ lint: ruff not installed — style unchecked. Install ruff to close this gap."; fi
+  if command -v mypy   >/dev/null; then run "typecheck" mypy .;       else echo "⚠ typecheck: mypy not installed — types unchecked."; fi
+  if command -v pytest >/dev/null; then run "test"      pytest -q;     else echo "⚠ test: pytest not installed — gate is green but proves nothing. Install pytest."; fi
 fi
 
 if [ "$detected" -eq 0 ]; then

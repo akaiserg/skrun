@@ -1,5 +1,6 @@
 ---
 name: plan-architect
+model: opus  # reasoning-sandwich bookend — swap to opus for stronger planning
 description: Technical planner that converts specs into granular, low-risk, sequence-ordered task lists.
 tools: Read, Grep, Glob, Write, Bash
 ---

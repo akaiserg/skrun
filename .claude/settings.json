@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/verify-gate.sh\""
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(find *)",
+      "Bash(rg *)",
+      "Bash(grep *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(make *)",
+
+      "Bash(node *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(pnpm *)",
+      "Bash(yarn *)",
+
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Bash(pytest *)",
+      "Bash(flake8 *)",
+      "Bash(black *)",
+      "Bash(ruff *)",
+
+      "Bash(go *)",
+      "Bash(gofmt *)",
+      "Bash(golangci-lint *)",
+
+      "Bash(cargo *)",
+
+      "Bash(mvn *)",
+      "Bash(gradle *)",
+      "Bash(./gradlew *)",
+
+      "Bash(curl http://localhost:*)",
+      "Bash(curl http://127.0.0.1:*)",
+
+      "Bash(git init*)",
+      "Bash(git status*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git checkout *)",
+      "Bash(git switch *)",
+      "Bash(git restore *)",
+      "Bash(git stash*)",
+      "Bash(git rev-parse*)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git reset --hard *)"
+    ],
+    "deny": [
+      "Bash(sudo *)",
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(dd *)",
+      "Bash(mkfs *)",
+      "Bash(chmod -R *)",
+      "Bash(chown -R *)"
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 ---
 name: spec-writer
+model: opus  # reasoning-sandwich bookend — swap to opus for stronger spec reasoning
 description: Guided agent that enforces strict spec-driven engineering before coding.
 tools: Read, Grep, Glob, Write, Bash
 ---
